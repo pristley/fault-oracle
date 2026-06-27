@@ -279,9 +279,35 @@ Contributions are welcome. Please ensure:
 
 ## License
 
-[Add appropriate license information]
+This project is licensed under the Apache License 2.0. See the [LICENSE](LICENSE) file for details.
+
+```
+Copyright 2024 Symbolic Dynamic Filtering Contributors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
 
 ## Citation
 
-If you use this library in research, please cite:
-[Add appropriate citation information] 
+If you use this library in your research, please cite the original paper:
+
+```bibtex
+@article{gupta2007symbolic,
+  title={Symbolic dynamic filtering for data-driven pattern recognition},
+  author={Gupta, Shalabh and Ray, Asok},
+  journal={Pattern recognition: theory and application},
+  pages={17--71},
+  year={2007},
+  publisher={Nova Science Publishers Hauppage, NY}
+}
+``` 

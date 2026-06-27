@@ -2,6 +2,11 @@
 name = "symbolic-dynamic-filtering"
 version = "0.1.0"
 edition = "2021"
+authors = ["Asok Ray", "Shalabh Gupta"]
+license = "Apache-2.0"
+description = "Symbolic Dynamic Filtering for real-time anomaly detection and fault prognosis in complex systems"
+repository = "https://github.com/pristley/fault-oracle"
+readme = "README.md"
 
 [dependencies]
 # Numerical computing

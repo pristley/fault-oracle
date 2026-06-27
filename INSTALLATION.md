@@ -424,19 +424,23 @@ docker run --rm -it sdf-build python3 -c "from symbolic_dynamic_filtering import
 
 ## License
 
-The Symbolic Dynamic Filtering library is provided as-is. See LICENSE file for details.
+The Symbolic Dynamic Filtering library is licensed under the **Apache License 2.0**. See the [LICENSE](LICENSE) file in the repository for full details.
+
+This means you can use this library freely in both open-source and commercial projects, as long as you comply with the license terms (mainly: provide a copy of the license and notice of changes).
 
 ---
 
 ## Citation
 
-If you use SDF in your research, please cite:
+If you use SDF in your research, please cite the original paper:
 
 ```bibtex
-@software{sdf2024,
-  title={Symbolic Dynamic Filtering: Real-time Anomaly Detection},
-  author={Pristley, et al.},
-  year={2024},
-  url={https://github.com/pristley/fault-oracle}
+@article{gupta2007symbolic,
+  title={Symbolic dynamic filtering for data-driven pattern recognition},
+  author={Gupta, Shalabh and Ray, Asok},
+  journal={Pattern recognition: theory and application},
+  pages={17--71},
+  year={2007},
+  publisher={Nova Science Publishers Hauppage, NY}
 }
 ```

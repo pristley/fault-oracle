@@ -1,7 +1,30 @@
 [project]
 name = "symbolic-dynamic-filtering"
 version = "0.1.0"
+description = "Symbolic Dynamic Filtering for real-time anomaly detection and fault prognosis in complex systems"
+authors = [
+    {name = "Asok Ray", email = "aray@psu.edu"},
+    {name = "Shalabh Gupta"}
+]
+license = {text = "Apache-2.0"}
 requires-python = ">=3.8"
+readme = "README.md"
+repository = "https://github.com/pristley/fault-oracle"
+keywords = ["symbolic-dynamics", "anomaly-detection", "wavelet-transforms", "markov-models"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
 dependencies = [
     "numpy>=1.20",
     "scipy>=1.7",
