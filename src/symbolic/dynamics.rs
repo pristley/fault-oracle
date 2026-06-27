@@ -144,7 +144,7 @@ impl SymbolicDynamics {
         }
 
         let n_points = phase_space.nrows();
-        let dE = phase_space.ncols();
+        let d_e = phase_space.ncols();
 
         // Compute threshold (10 * avg distance)
         let mut avg_dist = 0.0;
@@ -162,7 +162,7 @@ impl SymbolicDynamics {
         }
 
         if count == 0 {
-            return (dE, 0.0);
+            return (d_e, 0.0);
         }
 
         avg_dist /= count as f64;
@@ -185,7 +185,7 @@ impl SymbolicDynamics {
         }
 
         let fnn_percent = (false_neighbors as f64 / n_points as f64) * 100.0;
-        (dE, fnn_percent)
+        (d_e, fnn_percent)
     }
 
     /// Compute Shannon entropy of the sequence

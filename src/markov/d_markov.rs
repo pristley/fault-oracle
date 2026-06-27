@@ -13,7 +13,8 @@ pub struct DMarkovMachine {
     /// Machine order (state memory depth)
     order: usize,
     /// Alphabet size
-    alphabet_size: usize,
+    #[allow(dead_code)]
+    _alphabet_size: usize,
     /// All possible D-length sequences (states)
     states: Vec<String>,
     /// Transition probability matrix (Π)
@@ -70,7 +71,7 @@ impl DMarkovMachine {
 
         Ok(DMarkovMachine {
             order: depth,
-            alphabet_size,
+            _alphabet_size: alphabet_size,
             states,
             transition_matrix,
             state_probabilities,

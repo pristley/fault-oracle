@@ -3,6 +3,8 @@
 //! Exposes the Rust library to Python via PyO3.
 //! Implements Phase 7: Python Bindings
 
+#![allow(non_local_definitions)]
+
 use pyo3::prelude::*;
 use crate::wavelets::WaveletBasis;
 
