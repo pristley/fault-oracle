@@ -239,35 +239,8 @@ For formal proofs and convergence rates, see Ray & Phoha (2007) and Gupta & Ray 
 
 ### 2.1 Pipeline Architecture
 
-```
-Signal Input (1–100 kHz)
-    ↓
-[1] Continuous Wavelet Transform (CWT)
-    - Multi-scale decomposition (Morlet, Gaussian, Mexican hat)
-    - Selectable scales or automatic via redundancy index
-    - Output: Wavelet coefficients C(a, b) (time × scale matrix)
-    ↓
-[2] Scale Norm Extraction
-    - Compute norm of coefficients at each scale: ||C(a, :)||₂
-    - Output: Feature vector p ∈ ℝᵐ (one entry per scale)
-    ↓
-[3] Information-Theoretic Partitioning
-    - Assign each feature vector to a discrete symbol via partition
-    - Maximum entropy: Partition maximizes H(S) subject to fixed partition count
-    - Uniform: Equal-volume cells (baseline for comparison)
-    - Output: Symbol sequence s₁, s₂, s₃, …
-    ↓
-[4] Symbolic Encoding & D-Markov Construction
-    - Form D-length words from symbol sequence
-    - Build transition matrix Π over reachable states
-    - Compute state probability vector p from transition matrix stationary distribution
-    - Output: D-Markov machine (states + transition probabilities)
-    ↓
-[5] Anomaly Quantification
-    - Compare test statistics (state probabilities) to baseline
-    - Five distance metrics available (see Table 2.1)
-    - Output: Anomaly score ∈ [0, ∞) (threshold-based decision)
-```
+<img width="1024" height="559" alt="image" src="https://github.com/user-attachments/assets/01d93eac-dc20-4ccf-be77-4876d0c0daf4" />
+
 
 ### 2.2 Computational Complexity
 
