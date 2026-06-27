@@ -945,8 +945,7 @@ python -c "from symbolic_dynamic_filtering import WaveletTransform; print('OK')"
 ### Contact & Issues
 
 - **GitHub Issues:** https://github.com/pristley/fault-oracle/issues
-- **Email:** aray@psu.edu
-- **Documentation:** https://fault-oracle.readthedocs.io
+
 
 ---
 
