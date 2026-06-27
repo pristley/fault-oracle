@@ -249,6 +249,161 @@ Generate and view API documentation:
 cargo doc --open
 ```
 
+## Algorithm: Symbolic Dynamic Filtering
+
+Symbolic Dynamic Filtering (SDF) is a data-driven technique for pattern recognition and anomaly detection based on the theory of symbolic dynamics and information measures. The algorithm operates in multiple stages, each with solid mathematical foundations.
+
+### 1. Continuous Wavelet Transform (CWT)
+
+The first step decomposes the signal into multiple scales using wavelets, capturing features at different frequency resolutions.
+
+The continuous wavelet transform of a signal $s(t)$ with respect to a mother wavelet $\psi(t)$ is defined as:
+
+$$W(a, b) = \frac{1}{\sqrt{a}} \int_{-\infty}^{\infty} s(t) \psi^*\left(\frac{t-b}{a}\right) dt$$
+
+where:
+- $a > 0$ is the **scale parameter** (inverse frequency)
+- $b$ is the **translation parameter** (time shift)
+- $\psi^*$ denotes the complex conjugate of the mother wavelet
+
+**Feature Extraction**: The energy at each scale is captured via the norm:
+
+$$E(a) = \sqrt{\sum_{b} |W(a, b)|^2}$$
+
+The feature vector is thus: $\mathbf{f} = [E(a_1), E(a_2), \ldots, E(a_m)]$
+
+**Supported Wavelets**:
+- **Morlet (Gabor)**: Best frequency resolution, ideal for oscillatory signals
+- **Daubechies**: Compact support, good for transient detection
+- **Gaussian**: Smooth, differentiable wavelets
+- **Mexican Hat**: Ricker wavelet, good for edge detection
+- **Haar**: Simplest, orthogonal basis
+
+### 2. Partitioning: Signal Discretization
+
+To convert continuous features into discrete symbols, the feature space is partitioned into regions. Two strategies are implemented:
+
+#### Uniform Partitioning
+Divides the feature range into equally-sized intervals:
+$$P = \{[L_i, L_{i+1}] : i = 0, 1, \ldots, m-1\}$$
+where the boundaries are determined by dividing the range $[L_{\min}, L_{\max}]$ into $m$ equal parts.
+
+#### Maximum Entropy Partitioning
+Optimizes partition boundaries to maximize the Shannon entropy of the resulting symbolic sequence:
+
+$$H = -\sum_{i=1}^{m} p_i \log_2(p_i)$$
+
+where $p_i$ is the probability of the $i$-th symbol. The boundaries are adjusted iteratively to balance symbol frequencies, maximizing information content and discrimination power.
+
+**Theoretical Foundation**: Maximum entropy partitioning minimizes the mutual information between consecutive symbols, reducing redundancy while preserving dynamics (Eq. 13-15 in Ray & Gupta 2007).
+
+### 3. Symbolic Encoding
+
+Once partitions are defined, each feature value is mapped to a discrete symbol from an alphabet $\Sigma$. For an alphabet of size $k$, symbols are $\Sigma = \{a_0, a_1, \ldots, a_{k-1}\}$.
+
+**Feature-to-Symbol Mapping**:
+$$\sigma_i = a_j \quad \text{if} \quad f_i \in P_j$$
+
+where $f_i$ is the $i$-th feature value and $P_j$ is the $j$-th partition region.
+
+**Word Formation**: Consecutive symbols form words of length $d$:
+$$w = \sigma_1 \sigma_2 \cdots \sigma_d$$
+
+The set of all $d$-length words over $\Sigma$ is denoted $\Sigma^d$ with cardinality $|\Sigma^d| = k^d$.
+
+### 4. D-Markov Machines
+
+The state transitions of symbolic sequences are modeled using D-Markov machines, which capture order-dependent (finite-memory) dynamics.
+
+**State Definition**: Each state corresponds to a unique $d$-length word:
+$$S = \{w \in \Sigma^d : w \text{ appears in the sequence}\}$$
+
+**Transition Probabilities**: The probability of transitioning from state $w_i$ to state $w_j$ is:
+
+$$P(w_j | w_i) = \frac{\text{count}(w_i w_j)}{\text{count}(w_i)}$$
+
+where the numerator counts $d+1$ length sequences and the denominator counts $d$-length words.
+
+**Transition Matrix**: The stochastic matrix $\mathbf{T} \in \mathbb{R}^{|S| \times |S|}$ encodes all transitions:
+
+$$T_{ij} = P(w_j | w_i)$$
+
+**Entropy Rate**: For ergodic Markov chains, the entropy rate (Eq. 8 in Ray & Gupta 2007) quantifies average uncertainty:
+
+$$H_r = -\sum_{i,j} \pi_i T_{ij} \log_2 T_{ij}$$
+
+where $\pi_i$ is the stationary probability of state $i$.
+
+**Theoretical Importance**: The D-Markov machine preserves essential dynamics while reducing dimensionality by aggregating consecutive symbols into discrete states. The order $d$ controls memory depth.
+
+### 5. Anomaly Detection
+
+Multiple distance measures compare reference and test D-Markov machines. Given two stationary distributions $\mathbf{p}$ and $\mathbf{q}$:
+
+#### Norm Distance (L₂)
+Euclidean distance between stationary distributions:
+$$D_{\text{norm}} = \sqrt{\sum_i (p_i - q_i)^2}$$
+
+#### Angle Measure
+Cosine angle captures directional divergence:
+$$D_{\text{angle}} = \arccos\left(\frac{\mathbf{p} \cdot \mathbf{q}}{|\mathbf{p}| |\mathbf{q}|}\right)$$
+
+#### Kullback-Leibler Divergence
+Asymmetric measure of information divergence (Eq. 37):
+$$D_{\text{KL}} = \sum_i p_i \log_2\left(\frac{p_i}{q_i}\right)$$
+
+**Statistical Complexity** (Eq. 39): Combines entropy and KL divergence:
+$$C = -\sum_i p_i \log_2(p_i) \cdot D_{\text{KL}}(p \| q)$$
+
+#### Hellinger Distance
+Symmetric measure based on probability distribution overlap:
+$$D_{\text{Hellinger}} = \sqrt{\sum_i \left(\sqrt{p_i} - \sqrt{q_i}\right)^2}$$
+
+#### Wasserstein Distance
+Optimal transport metric accounting for feature relationships:
+$$D_{\text{Wasserstein}} = \min_{\gamma} \sum_{i,j} \gamma_{ij} |i - j|$$
+
+### 6. Complete Pipeline
+
+The full SDF algorithm workflow:
+
+```
+Raw Signal
+    ↓
+[1] CWT with multi-scale wavelets → Feature vectors
+    ↓
+[2] Partition discretization → Discrete regions
+    ↓
+[3] Symbolic encoding → Symbol sequences
+    ↓
+[4] D-Markov modeling → State machines
+    ↓
+[5] Distance computation → Anomaly scores
+    ↓
+[6] Threshold comparison → Binary classification
+```
+
+**Reference Baseline**: Established from normal/healthy operation using CWT + partitioning + D-Markov construction.
+
+**Test Condition**: New data processed identically; D-Markov distance from reference indicates anomaly severity.
+
+**Threshold**: 
+$$\text{Anomaly} = \begin{cases} \text{True} & D_{\text{measure}} > \tau \\ \text{False} & \text{otherwise} \end{cases}$$
+
+where $\tau$ is adaptively set based on false positive tolerance.
+
+### Mathematical References
+
+The implementation follows the theoretical framework from:
+- Ray, A., & Gupta, S. (2007). "Symbolic dynamic filtering for data-driven pattern recognition." *Pattern recognition: theory and application*, Nova Science Publishers.
+- Key equations implemented: 
+  - **Eq. 5-7**: CWT definition and energy normalization
+  - **Eq. 8-10**: D-Markov entropy rate and transition matrices
+  - **Eq. 13-15**: Maximum entropy partitioning optimization
+  - **Eq. 37-39**: Anomaly measures (KL divergence, statistical complexity)
+
+---
+
 ## Architecture
 
 The library follows a pipeline architecture:
