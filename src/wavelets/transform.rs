@@ -3,8 +3,7 @@
 //! Provides the core wavelet transform functionality including CWT computation,
 //! norm calculation, and scale series arrangement.
 
-use ndarray::{Array1, Array2};
-use std::f64::consts::PI;
+use ndarray::Array2;
 use crate::{Result, SdfError};
 use super::basis::WaveletBasis;
 

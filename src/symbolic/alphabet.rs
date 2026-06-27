@@ -88,7 +88,7 @@ impl Alphabet {
             Alphabet::Binary => vec!['a', 'b'],
             Alphabet::Quaternary => vec!['a', 'b', 'c', 'd'],
             Alphabet::Generic(n) => (0..*n)
-                .map(|i| (('a' as u8 + i as u8) as char))
+                .map(|i| ('a' as u8 + i as u8) as char)
                 .collect(),
             Alphabet::Custom(symbols) => symbols.clone(),
         }

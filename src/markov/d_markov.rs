@@ -3,8 +3,8 @@
 //! Implements D-Markov machines for order-dependent state analysis.
 //! Implements Phase 5.1: Core D-Markov Implementation
 
-use ndarray::{Array1, Array2};
-use std::collections::{HashMap, HashSet};
+use ndarray::Array2;
+use std::collections::HashMap;
 use crate::{Result, SdfError};
 
 /// D-Markov machine for order-dependent state analysis
@@ -60,7 +60,7 @@ impl DMarkovMachine {
 
         // Generate all possible D-length states
         let states = Self::generate_states(depth, alphabet_size);
-        let n_states = states.len();
+        let _n_states = states.len();
 
         // Build transition matrix
         let transition_matrix = Self::build_transition_matrix(symbol_sequence, &states, depth)?;

@@ -3,8 +3,8 @@
 //! Phase 9.2: Demonstrates fatigue crack detection using ultrasonic signals
 //! Example 10.2 from paper: Detects damage progression in vibration data
 
-use symbolic_dynamic_filtering::wavelets::{WaveletBasis, WaveletTransform};
-use symbolic_dynamic_filtering::anomaly::measures::{AnomalyMeasure, NormType};
+use sdf::wavelets::{WaveletBasis, WaveletTransform};
+use sdf::anomaly::measures::{AnomalyMeasure, NormType};
 
 /// Generate ultrasonic fatigue signal with progressive damage
 fn generate_fatigue_signal(cycles: usize, damage_level: f64) -> Vec<f64> {
@@ -24,7 +24,7 @@ fn generate_fatigue_signal(cycles: usize, damage_level: f64) -> Vec<f64> {
     signal
 }
 
-fn main() -> symbolic_dynamic_filtering::Result<()> {
+fn main() -> sdf::Result<()> {
     println!("╔════════════════════════════════════════════════════════╗");
     println!("║  Fatigue Damage Detection                              ║");
     println!("║  Example 10.2: Ultrasonic Monitoring                   ║");
@@ -102,13 +102,13 @@ fn main() -> symbolic_dynamic_filtering::Result<()> {
 
     // Find crack initiation point
     println!("\n📍 Crack Initiation Analysis:");
-    let mut crack_idx = 0;
+    let mut _crack_idx = 0;
     for (i, (_, _, norm, angle, _)) in anomaly_data.iter().enumerate() {
         if (angle > &threshold_angle || norm > &threshold_norm) && i > 0 {
             let prev_detected = anomaly_data[i - 1].3 > threshold_angle
                 || anomaly_data[i - 1].2 > threshold_norm;
             if !prev_detected {
-                crack_idx = i;
+                _crack_idx = i;
                 println!("✓ Visible crack detected at: {}", anomaly_data[i].0);
                 break;
             }

@@ -2,7 +2,6 @@
 //!
 //! Provides different wavelet families with their properties and computation methods.
 
-use std::f64::consts::PI;
 use serde::{Deserialize, Serialize};
 use crate::Result;
 
@@ -126,7 +125,7 @@ impl WaveletBasis {
         }
 
         // Compute cross-correlation with wavelet at central frequency
-        let center_freq = self.center_frequency();
+        let _center_freq = self.center_frequency();
         let mut cross_corr = 0.0;
         let dt = 1.0 / signal.len() as f64;
 

@@ -171,7 +171,7 @@ impl ScaleSelector {
         signal: &[f64],
         noise_std: f64,
         scales: &[usize],
-        wavelet: &WaveletBasis,
+        _wavelet: &WaveletBasis,
     ) -> Result<f64> {
         if signal.is_empty() {
             return Err(SdfError::InvalidParameter(
@@ -215,8 +215,8 @@ impl ScaleSelector {
     /// Automatically determines optimal scales for a given signal and wavelet.
     pub fn adaptive(
         signal: &[f64],
-        wavelet: &WaveletBasis,
-        sampling_rate: f64,
+        _wavelet: &WaveletBasis,
+        _sampling_rate: f64,
     ) -> Result<Vec<usize>> {
         if signal.is_empty() {
             return Err(SdfError::InvalidParameter(

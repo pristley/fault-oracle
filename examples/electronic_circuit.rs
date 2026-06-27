@@ -3,8 +3,8 @@
 //! Phase 9.1: Demonstrates anomaly detection on Duffing oscillator circuit
 //! Example 10.1 from paper: Detects parameter changes in nonlinear circuit
 
-use symbolic_dynamic_filtering::wavelets::{WaveletBasis, WaveletTransform};
-use symbolic_dynamic_filtering::anomaly::measures::{AnomalyMeasure, NormType};
+use sdf::wavelets::{WaveletBasis, WaveletTransform};
+use sdf::anomaly::measures::{AnomalyMeasure, NormType};
 
 /// Generate Duffing oscillator signal
 /// d²y/dt² + β*dy/dt + y + y³ = A*cos(Ωt)
@@ -25,7 +25,7 @@ fn generate_duffing_signal(beta: f64, amplitude: f64, omega: f64, steps: usize) 
     signal
 }
 
-fn main() -> symbolic_dynamic_filtering::Result<()> {
+fn main() -> sdf::Result<()> {
     println!("╔════════════════════════════════════════════════════════╗");
     println!("║  Electronic Circuit Anomaly Detection                  ║");
     println!("║  Example 10.1: Duffing Oscillator                      ║");

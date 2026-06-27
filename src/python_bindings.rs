@@ -4,20 +4,12 @@
 //! Implements Phase 7: Python Bindings
 
 use pyo3::prelude::*;
-use pyo3::types::PyList;
-use crate::{
-    wavelets::{WaveletBasis, WaveletTransform},
-    anomaly::{AnomalyMeasure, detection::{PatternVector, AnomalyDetector}},
-    anomaly::measures::NormType,
-    markov::DMarkovMachine,
-    symbolic::Alphabet,
-    partitioning::Partition,
-};
+use crate::wavelets::WaveletBasis;
 
 /// Initialize the Python module
 /// Implements Phase 7.1: Main Binding File
 #[pymodule]
-fn _core(py: Python, m: &PyModule) -> PyResult<()> {
+fn _core(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add("__version__", "0.1.0")?;
 
     // Main API classes

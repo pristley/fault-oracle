@@ -4,7 +4,7 @@
 //! Implements Phase 4.2: Symbolic Dynamics with phase space reconstruction
 
 use std::collections::HashMap;
-use ndarray::{Array2, s};
+use ndarray::Array2;
 use crate::Result;
 
 /// Symbolic dynamics analyzer with phase space reconstruction

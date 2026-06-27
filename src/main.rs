@@ -2,12 +2,11 @@
 //!
 //! Command-line interface for the Symbolic Dynamic Filtering library.
 
-use symbolic_dynamic_filtering::wavelets::{WaveletBasis, ScaleSelector};
-use symbolic_dynamic_filtering::partitioning::types::Partition;
-use symbolic_dynamic_filtering::symbolic::{Alphabet, SymbolicEncoder};
-use std::io;
+use sdf::wavelets::{WaveletBasis, ScaleSelector};
+use sdf::partitioning::types::Partition;
+use sdf::symbolic::{Alphabet, SymbolicEncoder};
 
-fn main() -> symbolic_dynamic_filtering::Result<()> {
+fn main() -> sdf::Result<()> {
     println!("Symbolic Dynamic Filtering (SDF) - CLI");
     println!("======================================\n");
 
@@ -27,7 +26,7 @@ fn main() -> symbolic_dynamic_filtering::Result<()> {
     println!("Number of scales: {}\n", scales.len());
 
     // Perform wavelet transform
-    match symbolic_dynamic_filtering::wavelets::WaveletTransform::continuous(
+    match sdf::wavelets::WaveletTransform::continuous(
         &signal,
         &scales,
         wavelet,
@@ -59,7 +58,7 @@ fn main() -> symbolic_dynamic_filtering::Result<()> {
     println!("Alphabet size: {}\n", encoder.alphabet().size());
 
     // Encode signal
-    let encoded = encoder.encode(&signal)?;
+    let encoded = encoder.encode_timeseries(&signal)?;
     let sequence: String = encoded.iter().collect();
     println!("Encoded sequence: {}", sequence);
 

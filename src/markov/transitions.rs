@@ -177,7 +177,7 @@ impl TransitionMatrix {
                 }
 
                 // Check if rows are similar
-                let mut max_diff = 0.0;
+                let mut max_diff: f64 = 0.0;
                 for k in 0..self.n_states {
                     let diff = (self.matrix[[i, k]] - self.matrix[[j, k]]).abs();
                     max_diff = max_diff.max(diff);

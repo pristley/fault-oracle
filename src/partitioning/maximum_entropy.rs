@@ -68,7 +68,7 @@ impl MaximumEntropyPartitioner {
 
         // Ensure no duplicates
         boundaries.sort_by(|a, b| a.partial_cmp(b).unwrap());
-        boundaries.dedup_by(|a, b| (a - b).abs() < 1e-10);
+        boundaries.dedup_by(|a, b| (*a - *b).abs() < 1e-10);
 
         if boundaries.len() >= self.num_symbols {
             boundaries.truncate(self.num_symbols - 1);

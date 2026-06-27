@@ -172,7 +172,7 @@ impl AnomalyMeasure {
     fn compute_excess_entropy(p_current: &[f64], p_nominal: &[f64]) -> f64 {
         let mut excess = 0.0;
         for (c, n) in p_current.iter().zip(p_nominal.iter()) {
-            if c > 0.0 && n > 0.0 {
+            if *c > 0.0 && *n > 0.0 {
                 excess += (c - n).abs();
             }
         }
@@ -182,7 +182,7 @@ impl AnomalyMeasure {
     fn compute_statistical_complexity(p_current: &[f64], p_nominal: &[f64]) -> f64 {
         let mut complexity = 0.0;
         for (c, n) in p_current.iter().zip(p_nominal.iter()) {
-            if c > 0.0 && n > 0.0 {
+            if *c > 0.0 && *n > 0.0 {
                 complexity += (c * (c - n).abs()).abs();
             }
         }

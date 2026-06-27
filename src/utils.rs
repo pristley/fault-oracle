@@ -1,6 +1,5 @@
 //! Utility functions and helpers
 
-use ndarray::Array1;
 use crate::Result;
 
 /// Compute the Power Spectral Density (PSD) of a signal

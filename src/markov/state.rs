@@ -6,7 +6,7 @@
 use crate::Result;
 
 /// State in a Markov model
-#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct State {
     /// State identifier
     id: usize,
